@@ -7,42 +7,43 @@ import MyLogger from "../base/logger";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 export default class FirebaseAuthHelper {
-  private static firebaseAppInstance?: FirebaseApp;
-  private static firebaseAuthInstance?: Auth;
+  private firebaseAppInstance?: FirebaseApp;
+  private firebaseAuthInstance?: Auth;
 
-  /**
-   * Method initiates the firebase app if not initiated yet
-   * @returns FirebaseApp instance
-   */
-  public static getFirebaseInstance(): FirebaseApp {
-    if (
-      FirebaseAuthHelper.firebaseAppInstance === null ||
-      FirebaseAuthHelper.firebaseAppInstance === undefined
-    ) {
-      FirebaseAuthHelper.firebaseAppInstance = initializeApp(
-        Definitions.FIREBASE_CONFIG
-      );
-    }
-    return FirebaseAuthHelper.firebaseAppInstance;
+  constructor() {
+    MyLogger.logInfo("building auth helper");
   }
 
   /**
    * Method initiates the firebase app if not initiated yet
    * @returns FirebaseApp instance
    */
-  public static getFirebaseAuthInstance(): Auth {
+  public getFirebaseInstance(): FirebaseApp {
     if (
-      FirebaseAuthHelper.firebaseAuthInstance === null ||
-      FirebaseAuthHelper.firebaseAuthInstance === undefined
+      this.firebaseAppInstance === null ||
+      this.firebaseAppInstance === undefined
     ) {
-      FirebaseAuthHelper.firebaseAuthInstance = getAuth(
-        this.getFirebaseInstance()
-      );
+      this.firebaseAppInstance = initializeApp(Definitions.FIREBASE_CONFIG);
     }
-    return FirebaseAuthHelper.firebaseAuthInstance;
+    return this.firebaseAppInstance;
   }
 
-  public static getAuthUiConfig() {
+  /**
+   * Method initiates the firebase app if not initiated yet
+   * @returns FirebaseApp instance
+   */
+  public getFirebaseAuthInstance(): Auth {
+    if (
+      this.firebaseAuthInstance === null ||
+      this.firebaseAuthInstance === undefined
+    ) {
+      MyLogger.logInfo("Getting new auth instance");
+      this.firebaseAuthInstance = getAuth(this.getFirebaseInstance());
+    }
+    return this.firebaseAuthInstance;
+  }
+
+  public getAuthUiConfig() {
     let config = {
       callbacks: {
         signInSuccessWithAuthResult: function (

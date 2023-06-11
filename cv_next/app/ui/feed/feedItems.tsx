@@ -44,7 +44,7 @@ function FeedItems() {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [cvs, setCvs] = useState<CvModel[]>([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Check if user is already logged in
     FirebaseAuthHelper.getFirebaseAuthInstance().onAuthStateChanged((user) => {
       if (user) {
@@ -59,7 +59,7 @@ function FeedItems() {
         console.log('User is not logged in');
       }
     });
-  }, []);
+  }, []);*/
 
   const fetchCVs = async () => {
     if (!initialLoaded) {

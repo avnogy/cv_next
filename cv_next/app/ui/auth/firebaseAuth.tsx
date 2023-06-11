@@ -1,11 +1,10 @@
 "use client";
-import MyLogger from "@/app/base/logger";
-import FirebaseAuthHelper from "@/app/services/firebaseAuthHelper";
+import MyApp from "@/app/page";
 import React, { useState, useEffect, useRef } from "react";
 var firebaseui = require("firebaseui");
 
 function getAuthUI() {
-  const auth = FirebaseAuthHelper.getFirebaseAuthInstance();
+  const auth = MyApp.firebaseAuthHelper.getFirebaseAuthInstance();
   return new firebaseui.auth.AuthUI(auth);
 }
 
@@ -39,9 +38,8 @@ export default function FirebaseAuthComp() {
   };
   useEffect(() => {
     if (typeof window !== "undefined" && !isLoginLoaded) {
-      console.log(isLoginLoaded);
       setLoginLoaded(true);
-      FirebaseAuthHelper.getFirebaseAuthInstance().onAuthStateChanged(
+      /*FirebaseAuthHelper.getFirebaseAuthInstance().onAuthStateChanged(
         (user) => {
           MyLogger.logInfo("login change", user);
           if (user) {
@@ -54,11 +52,11 @@ export default function FirebaseAuthComp() {
             // Perform any necessary actions for non-logged-in user
           }
         }
-      );
+      );*/
       let ui = getAuthUI();
       ui.start(
         "#firebaseui-auth-container",
-        FirebaseAuthHelper.getAuthUiConfig()
+        MyApp.firebaseAuthHelper.getAuthUiConfig()
       );
     }
 

@@ -766,11 +766,11 @@ export default class FirebaseHelper {
       undefined,
       filterOutDeleted
     );
-    MyLogger.logDebug(
+    /*MyLogger.logDebug(
       `requested all cvs(pagination) - current page number: ${FirebaseHelper.getCurrentPageNumber()}` +
         `\n got:`,
       res
-    );
+    );*/
     return res;
   }
 

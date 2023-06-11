@@ -14,6 +14,7 @@ import { useDisclosure } from "@mantine/hooks";
 import React, { Fragment } from "react";
 import Link from "next/link";
 import SwitchToggle from "../themeToggle";
+import { useRouter } from "next/navigation";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -76,6 +77,9 @@ export default function LandingHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useStyles();
+  
+  
+  const router = useRouter();
 
   return (
     <Box pb={120}>
@@ -91,10 +95,15 @@ export default function LandingHeader() {
             <Links />
           </Group>
           <Group className={classes.hiddenMobile}>
-            <Button component="a" href="/pages/login">
+          <Button
+              component="a"
+              onClick={() => {
+                router.push("/pages/login");
+              }}
+            >
               log in
             </Button>
-            <SwitchToggle/>
+            <SwitchToggle />
           </Group>
           <Burger
             opened={drawerOpened}
@@ -126,10 +135,15 @@ export default function LandingHeader() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button component="a" href="/pages/login">
+            <Button
+              component="a"
+              onClick={() => {
+                router.push("/pages/login");
+              }}
+            >
               log in
             </Button>
-            <SwitchToggle/>
+            <SwitchToggle />
           </Group>
         </ScrollArea>
       </Drawer>
